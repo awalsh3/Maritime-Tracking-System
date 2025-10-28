@@ -34,6 +34,7 @@ def get_session():
     session = None
     try:
         with Session(engine) as session:
+            session.exec("SET default_transaction_read_only = on;")
             yield session
     except Exception as e:
         logger.exception(f"Database session error: {e}")
